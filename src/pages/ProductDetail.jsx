@@ -1,0 +1,9 @@
+import { Link, useParams } from 'react-router-dom'
+import { ArrowLeft, ArrowUpRight, CheckCircle2 } from 'lucide-react'
+import { products } from '../data/products'
+export default function ProductDetail() {
+  const { slug } = useParams()
+  const p = products.find(x=>x.slug===slug)
+  if(!p) return <section className="section-pad container"><h1>Product not found</h1><Link to="/products">Back to products</Link></section>
+  return <><section className="detail-hero"><div className="container detail-grid"><div><Link to="/products" className="back-link"><ArrowLeft size={15}/> All products</Link><span className="eyebrow eyebrow-orange">{p.group}</span><h1>{p.name}</h1><p>{p.summary}</p><Link to="/contact" className="button">Enquire about this product <ArrowUpRight size={16}/></Link></div><img src={p.image} alt={p.name}/></div></section><section className="section-pad"><div className="container detail-content"><div><span className="eyebrow">OVERVIEW</span><h2>Designed around the application.</h2><p>{p.detail}</p><p>Final product availability, material selection, dimensions and tolerances must be confirmed against the approved technical specification.</p></div><div className="detail-spec"><h3>Specification considerations</h3>{p.specs.map(s=><div key={s}><CheckCircle2 size={17}/>{s}</div>)}<h3>Material options to discuss</h3>{p.materials.map(s=><div key={s}><CheckCircle2 size={17}/>{s}</div>)}</div></div></section><section className="cta-section section-pad"><div className="container cta-box"><div><span className="eyebrow">NEED A SPECIFIC CONFIGURATION?</span><h2>Share your requirement.</h2><p>Send dimensions, drawings or a sample reference to start an enquiry.</p></div><Link to="/contact" className="button">Contact Keystone <ArrowUpRight size={16}/></Link></div></section></>
+}
