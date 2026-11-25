@@ -1,6 +1,4 @@
-
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
@@ -8,7 +6,8 @@ import {
   PackageCheck,
   ShieldCheck,
   MoveUpRight,
-  Users
+  Users,
+  ArrowDown
 } from 'lucide-react'
 
 import { Link } from 'react-router-dom'
@@ -25,6 +24,17 @@ const industries = [
   ['Electrical & electronics', 'Components for assemblies and mechanisms', 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=85'],
   ['Agriculture', 'Solutions for agricultural equipment applications', 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85']
 ]
+
+/* Hero text animation: each child fades up one after another */
+const heroContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+}
+
+const heroItem = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } }
+}
 
 export default function Home() {
   return (
@@ -46,37 +56,32 @@ export default function Home() {
 
         <div className="container hero-content">
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            variants={heroContainer}
+            initial="hidden"
+            animate="show"
             className="hero-copy"
           >
-            <span className="hero-kicker">
-              <i></i>
-              AN INDUSTRIAL &amp; TECHNOLOGY ENTERPRISE
-            </span>
-
-            <h1>
+            <motion.h1 variants={heroItem}>
               Industrial Solutions.
               <br />
               Engineering.
               <br />
               <em>Technology.</em>
-            </h1>
+            </motion.h1>
 
-            <p className="hero-description">
+            <motion.p variants={heroItem} className="hero-description">
               Building connections between industrial requirements,
               manufacturing capabilities and emerging technologies.
-            </p>
+            </motion.p>
 
-            <p className="hero-secondary">
+            <motion.p variants={heroItem} className="hero-secondary">
               Keystone Corporation is an emerging industrial enterprise focused
               on developing business opportunities across industrial supply,
               engineering partnerships, manufacturing and technology-led
               solutions.
-            </p>
+            </motion.p>
 
-            <div className="hero-actions">
+            <motion.div variants={heroItem} className="hero-actions">
               <Link to="/products" className="button">
                 Explore Our Businesses
                 <ArrowRight size={18} />
@@ -85,14 +90,14 @@ export default function Home() {
               <Link to="/contact" className="button button-outline">
                 Connect With Us
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* INTRODUCTION */}
       <section className="intro-section section-pad" id="intro">
-        <div className="container intro-grid">
+        <div className="container intro-grid intro-center">
           <Reveal>
             <span className="eyebrow">WHO WE ARE</span>
             <h2>
